@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Uway — Your way. Engineered.</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,30..100;1,9..144,300..900,30..100&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4ecd8;
+    --paper-deep:#ebe1c6;
+    --ink:#0f0f0f;
+    --ink-soft:#1a1a1a;
+    --ink-faded:#5a5448;
+    --red:#c1272d;
+    --rule:#bdb097;
+  }
+  html,body{background:var(--paper);color:var(--ink);}
+  body{
+    font-family:"Fraunces", Georgia, serif;
+    font-optical-sizing:auto;
+    font-variation-settings:"SOFT" 50;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:11px;
+    color:var(--ink-faded);
+  }
+  .display{
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:500;
+    font-variation-settings:"SOFT" 70;
+    letter-spacing:-.025em;
+    line-height:.88;
+  }
+  .hero-line-1{ font-size:clamp(42px, 10vw, 120px); }
+  .hero-line-2{ font-size:clamp(38px, 8vw, 96px); }
+  .section-head{
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:400;
+    font-variation-settings:"SOFT" 60;
+    font-size:clamp(28px, 4.4vw, 58px);
+    letter-spacing:-.02em;
+    line-height:1;
+  }
+  .section-head em{ font-style:italic; font-variation-settings:"SOFT" 80; color:var(--ink-soft); }
+  .band-line{
+    font-family:"Fraunces", Georgia, serif;
+    font-style:italic;
+    font-weight:400;
+    font-variation-settings:"SOFT" 80;
+    font-size:clamp(30px, 5.6vw, 82px);
+    letter-spacing:-.02em;
+    line-height:1;
+  }
+  .footer-slogan{
+    font-family:"Fraunces", Georgia, serif;
+    font-style:italic;
+    font-weight:400;
+    font-variation-settings:"SOFT" 80;
+    font-size:clamp(18px, 2.2vw, 28px);
+    letter-spacing:-.01em;
+    line-height:1;
+    color:var(--ink-faded);
+  }
+  .body-copy{
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:400;
+    font-variation-settings:"SOFT" 40;
+    color:var(--ink-faded);
+    font-size:15px;
+    line-height:1.55;
+  }
+  .red-dot{ color:var(--red); }
+  .dot-period{ color:var(--red); }
+
+  /* Logo */
+  .uway-logo{
+    position:relative;
+    display:inline-block;
+    width:clamp(118px, 11vw, 156px);
+    aspect-ratio:3.15 / 1;
+    overflow:hidden;
+    text-decoration:none;
+  }
+  .uway-logo img{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:182%;
+    max-width:none;
+    transform:translate(-50%, -50%);
+    display:block;
+  }
+  .uway-logo.small{
+    width:104px;
+  }
+  .hero-eyebrow{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-top:8px;
+    margin-bottom:28px;
+    max-width:32rem;
+    line-height:1.8;
+  }
+  .hero-eyebrow::before{
+    content:"";
+    width:72px;
+    border-top:1px solid var(--rule);
+    flex:0 0 auto;
+  }
+
+  /* Top bar */
+  .topbar-meta{ display:none; }
+  @media(min-width:820px){
+    .topbar-meta{ display:inline-flex; gap:0; align-items:center; }
+  }
+
+  /* Hero */
+  .hero{ position:relative; overflow:hidden; }
+  .hero-compass{
+    position:absolute;
+    top:8px;
+    right:clamp(16px, 5vw, 64px);
+    width:clamp(110px, 13vw, 160px);
+    opacity:.72;
+    pointer-events:none;
+  }
+  .compass-rotatable{
+    transform-origin:center;
+    transition: transform 0.6s cubic-bezier(.2,.7,.2,1);
+  }
+  .hero-route{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    opacity:.45;
+  }
+  .hero-route path{
+    fill:none;
+    stroke:var(--ink-faded);
+    stroke-width:1;
+    stroke-dasharray:6 7;
+  }
+  .hero-route .draw-path{
+    stroke:var(--red);
+    stroke-opacity:.55;
+    stroke-width:1.2;
+    stroke-dasharray:4 6;
+  }
+
+  /* Cards */
+  .cap-card{
+    position:relative;
+    padding:28px 26px 30px;
+    border-top:1px dotted var(--rule);
+    border-left:2px solid transparent;
+    transition: border-color .4s ease-out, transform .4s ease-out, background-color .4s ease-out;
+  }
+  .cap-card:hover{
+    border-left-color:var(--red);
+    background-color:rgba(193,39,45,0.03);
+    transform:translateX(2px);
+  }
+  .cap-card .num{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--ink-faded);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .cap-card .num::before{
+    content:"";
+    width:7px; height:7px; border-radius:50%;
+    background:var(--red);
+    display:inline-block;
+  }
+  .cap-card h3{
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:500;
+    font-variation-settings:"SOFT" 60;
+    font-size:22px;
+    line-height:1.15;
+    letter-spacing:-.01em;
+    color:var(--ink);
+    margin-bottom:12px;
+  }
+
+  /* Band */
+  .band{ background:var(--paper-deep); }
+
+  /* Contact */
+  .email-link{
+    position:relative;
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:500;
+    font-variation-settings:"SOFT" 60;
+    font-size:clamp(24px, 6vw, 64px);
+    letter-spacing:-.02em;
+    color:var(--ink);
+    text-decoration:none;
+    display:inline-block;
+    padding-bottom:6px;
+    line-height:1.05;
+    overflow-wrap:anywhere;
+  }
+  .email-link::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:2px;
+    background:var(--red);
+    transform-origin:left;
+    transform:scaleY(1) scaleX(1);
+    transition: height .35s ease-out;
+  }
+  .email-link:hover::after{ height:6px; }
+  .copied-msg{
+    display:inline-block;
+    margin-left:14px;
+    font-family:"IBM Plex Mono", monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-faded);
+    opacity:0;
+    transform:translateY(2px);
+    transition:opacity .35s ease-out, transform .35s ease-out;
+  }
+  .copied-msg.visible{ opacity:1; transform:translateY(0); }
+
+  /* Dividers */
+  .dot-divider{
+    border-top:1px dotted var(--rule);
+  }
+
+  .contact-row,
+  .footer-bar{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .footer-copy{
+    display:flex;
+    align-items:baseline;
+    gap:18px;
+    margin-left:auto;
+  }
+
+  /* Reveal animations */
+  .reveal{
+    opacity:0;
+    transform:translateY(22px);
+    transition: opacity .9s ease-out, transform .9s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.revealed{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* Route draw-in */
+  @keyframes route-draw {
+    from { stroke-dashoffset: var(--len); }
+    to { stroke-dashoffset: 0; }
+  }
+  .route-animated{
+    stroke-dasharray: var(--len);
+    stroke-dashoffset: var(--len);
+    animation: route-draw 2.5s ease-out forwards;
+    animation-delay:.3s;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .compass-rotatable{ transition:none; }
+    .route-animated{ animation:none; stroke-dashoffset:0; }
+  }
+
+  @media (max-width: 767px){
+    .uway-logo{
+      width:114px;
+    }
+    .hero{
+      overflow:hidden;
+    }
+    .hero-compass{
+      top:18px;
+      right:18px;
+      width:86px;
+      opacity:.5;
+    }
+    .hero-route{
+      opacity:.28;
+    }
+    .hero-eyebrow{
+      gap:10px;
+      margin-bottom:22px;
+      max-width:15.5rem;
+      font-size:10px;
+      letter-spacing:.12em;
+      line-height:1.65;
+    }
+    .hero-eyebrow::before{
+      width:54px;
+    }
+    .cap-card{
+      padding:24px 0 26px;
+    }
+    .band-inner{
+      padding-top:22px;
+      padding-bottom:22px;
+    }
+    .contact-row,
+    .footer-bar{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .footer-copy{
+      margin-left:0;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:8px;
+    }
+    .copied-msg{
+      margin-left:0;
+    }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- TOP BAR -->
+<header class="w-full">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10 pt-8 pb-6 flex items-center justify-between">
+    <a href="#" class="uway-logo" aria-label="Uway">
+      <img src="assets/logo.png" alt="Uway">
+    </a>
+    <div class="topbar-meta mono">
+      <span>AI CONSULTING · SOFTWARE · TRAVEL TOOLS</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero reveal" id="hero">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10 pt-6 md:pt-16 pb-20 md:pb-36 relative">
+
+    <!-- Discreet route SVG -->
+    <svg class="hero-route" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+      <path class="draw-path route-animated"
+            d="M -20,480 C 120,440 180,360 300,340 C 420,320 500,400 620,380 C 760,356 820,240 960,220 C 1080,204 1180,140 1260,110" />
+    </svg>
+
+    <!-- Compass -->
+    <svg class="hero-compass" viewBox="0 0 200 200" aria-hidden="true">
+      <g class="compass-rotatable" id="compass-group">
+        <circle cx="100" cy="100" r="86" fill="none" stroke="#0f0f0f" stroke-width="1"/>
+        <circle cx="100" cy="100" r="74" fill="none" stroke="#5a5448" stroke-width=".6" stroke-dasharray="1 3"/>
+        <circle cx="100" cy="100" r="58" fill="none" stroke="#5a5448" stroke-width=".6"/>
+        <!-- tick marks -->
+        <g stroke="#0f0f0f" stroke-width=".8">
+          <line x1="100" y1="14" x2="100" y2="26"/>
+          <line x1="100" y1="174" x2="100" y2="186"/>
+          <line x1="14" y1="100" x2="26" y2="100"/>
+          <line x1="174" y1="100" x2="186" y2="100"/>
+        </g>
+        <g stroke="#5a5448" stroke-width=".5">
+          <line x1="100" y1="18" x2="100" y2="24" transform="rotate(45 100 100)"/>
+          <line x1="100" y1="18" x2="100" y2="24" transform="rotate(90 100 100)"/>
+          <line x1="100" y1="18" x2="100" y2="24" transform="rotate(135 100 100)"/>
+          <line x1="100" y1="18" x2="100" y2="24" transform="rotate(180 100 100)"/>
+          <line x1="100" y1="18" x2="100" y2="24" transform="rotate(225 100 100)"/>
+          <line x1="100" y1="18" x2="100" y2="24" transform="rotate(270 100 100)"/>
+          <line x1="100" y1="18" x2="100" y2="24" transform="rotate(315 100 100)"/>
+        </g>
+        <!-- Needle: red pointing north, ink pointing south -->
+        <polygon points="100,28 108,100 100,108 92,100" fill="#c1272d"/>
+        <polygon points="100,172 108,100 100,92 92,100" fill="#0f0f0f"/>
+        <circle cx="100" cy="100" r="3.2" fill="#0f0f0f"/>
+        <!-- N label -->
+        <text x="100" y="12" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#0f0f0f" font-weight="500">N</text>
+      </g>
+    </svg>
+
+    <div class="hero-eyebrow mono relative z-10">A SMALL STUDIO · EST. MMXXVI · YORK · N 53°57′ W 1°05′</div>
+
+    <h1 class="display relative z-10 mt-8 md:mt-20">
+      <span class="hero-line-1 block">Your way.</span>
+      <span class="hero-line-2 block">Engineered<span class="dot-period">.</span></span>
+    </h1>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities" class="reveal">
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10 pb-24 md:pb-32">
+    <h2 class="section-head max-w-3xl mb-16">Different work. Same bearings.</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
+      <article class="cap-card reveal" data-index="0">
+        <div class="num">01</div>
+        <h3>Applied AI Consulting</h3>
+        <p class="body-copy">Practical AI workflows for real delivery.</p>
+      </article>
+      <article class="cap-card reveal" data-index="1">
+        <div class="num">02</div>
+        <h3>Custom Software Development</h3>
+        <p class="body-copy">Product engineering from sketch to production.</p>
+      </article>
+      <article class="cap-card reveal" data-index="2">
+        <div class="num">03</div>
+        <h3>Travel Software</h3>
+        <p class="body-copy">Thoughtful tools for travelers. First up: smarter car trips.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="band reveal" id="contact">
+  <div class="band-inner max-w-[1280px] mx-auto px-6 md:px-10 py-20 md:py-36">
+    <div class="mono mb-6">GET IN TOUCH</div>
+    <div class="contact-row flex-wrap">
+      <a href="mailto:andrei@uway.me" id="email-link" class="email-link">andrei@uway.me</a>
+      <span id="copied-msg" class="copied-msg">— copied.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="max-w-[1280px] mx-auto px-6 md:px-10">
+    <div class="dot-divider footer-bar py-8">
+      <a href="#" class="uway-logo small" aria-label="Uway">
+        <img src="assets/logo.png" alt="Uway">
+      </a>
+      <div class="footer-copy">
+        <p class="footer-slogan">Building the way <em>forward</em>.</p>
+        <div class="mono">© MMXXVI · UWAY.ME</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // 1. Compass needle follows cursor
+  const hero = document.getElementById('hero');
+  const compassGroup = document.getElementById('compass-group');
+  const compassSvg = document.querySelector('.hero-compass');
+
+  if (hero && compassGroup && compassSvg) {
+    hero.addEventListener('mousemove', function(e){
+      const rect = compassSvg.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top + rect.height/2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      // The red needle points up (north = -Y). Angle from +X axis is atan2(dy,dx).
+      // To rotate "up" (which is -90deg from +X) to point at cursor, add 90.
+      const angle = Math.atan2(dy, dx) * 180 / Math.PI + 90;
+      compassGroup.style.transform = 'rotate(' + angle + 'deg)';
+    });
+  }
+
+  // 2. Scroll reveal with IntersectionObserver
+  const reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const idx = parseInt(el.getAttribute('data-index') || '0', 10);
+          el.style.transitionDelay = (idx * 140) + 'ms';
+          el.classList.add('revealed');
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function(el){ io.observe(el); });
+  } else {
+    reveals.forEach(function(el){ el.classList.add('revealed'); });
+  }
+
+  // 3. Email copy on click
+  const emailLink = document.getElementById('email-link');
+  const copiedMsg = document.getElementById('copied-msg');
+  if (emailLink && copiedMsg) {
+    emailLink.addEventListener('click', function(e){
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        e.preventDefault();
+        navigator.clipboard.writeText('andrei@uway.me').then(function(){
+          copiedMsg.classList.add('visible');
+          setTimeout(function(){ copiedMsg.classList.remove('visible'); }, 1500);
+        }).catch(function(){
+          window.location.href = 'mailto:andrei@uway.me';
+        });
+      }
+    });
+  }
+
+  // 4. Route line draw — set the CSS var to the path length
+  const routePath = document.querySelector('.route-animated');
+  if (routePath && routePath.getTotalLength) {
+    try {
+      const len = routePath.getTotalLength();
+      routePath.style.setProperty('--len', len);
+    } catch(err) {
+      routePath.style.setProperty('--len', 2000);
+    }
+  }
+})();
+</script>
+</body>
+</html>
